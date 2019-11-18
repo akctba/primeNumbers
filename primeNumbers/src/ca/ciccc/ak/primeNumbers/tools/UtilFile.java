@@ -11,6 +11,8 @@ import java.net.URL;
 import java.util.List;
 
 public class UtilFile {
+	
+	public static final String CSV_EXTENSION = ".csv";
 
 	public static void printFile(String path) {
 		BufferedReader reader;
