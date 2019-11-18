@@ -6,6 +6,7 @@ import java.util.Scanner;
 import ca.ciccc.ak.primeNumbers.interfaces.View;
 import ca.ciccc.ak.primeNumbers.tools.UtilFile;
 import ca.ciccc.ak.primeNumbers.view.console.ConsoleApplication;
+import ca.ciccc.ak.primeNumbers.view.swing.GUIApplication;
 
 public class PrimeGen {
 
@@ -28,7 +29,7 @@ public class PrimeGen {
 			View view;
 			
 			if ("gui".equalsIgnoreCase(option)) {
-			//TODO view = new GUIApplication();
+				view = new GUIApplication();
 			} else {
 				//Console application
 				view = new ConsoleApplication();
