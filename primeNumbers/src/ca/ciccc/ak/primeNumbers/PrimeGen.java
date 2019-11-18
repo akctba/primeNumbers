@@ -1,7 +1,6 @@
 package ca.ciccc.ak.primeNumbers;
 
 import java.net.URL;
-import java.util.Scanner;
 
 import ca.ciccc.ak.primeNumbers.interfaces.View;
 import ca.ciccc.ak.primeNumbers.tools.UtilFile;
@@ -32,7 +31,7 @@ public class PrimeGen {
 				view = new GUIApplication();
 			} else {
 				//Console application
-				view = new ConsoleApplication();
+				view = new ConsoleApplication(args);
 			}
 
 			view.start();
@@ -44,9 +43,9 @@ public class PrimeGen {
 	 */
 	private static void printHelp() {
 		UtilFile uf = new UtilFile();
-		URL resource = uf.getClass().getResource("help.txt");
+		URL helpFile = uf.getClass().getResource("../help.txt");
 		
-		UtilFile.printFile(resource);
+		UtilFile.printFile(helpFile);
 
 	}
 

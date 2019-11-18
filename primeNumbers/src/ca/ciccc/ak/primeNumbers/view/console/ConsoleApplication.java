@@ -11,8 +11,31 @@ public class ConsoleApplication implements View {
 
 	private Scanner scanner;
 	private String option = "";
+	private Integer num;
+	private String path;
 
 	public static final int SAVE_LIMIT = 100;
+
+	public ConsoleApplication() {
+		// default contructor
+	}
+
+	public ConsoleApplication(String[] args) {
+		if (args.length > 0) {
+			option = args[0];
+		}
+		if (args.length > 1) {
+			try {
+				num = Integer.decode(args[1]);
+			} catch (NumberFormatException e) {
+				num = null;
+			}
+		}
+		
+		if (args.length > 2) {
+			path = args[2];
+		}
+	}
 
 	@Override
 	public void start() {
@@ -25,44 +48,52 @@ public class ConsoleApplication implements View {
 			System.out.println("# Q - Quit the program");
 
 			option = scanner.nextLine().toLowerCase();
-
+			
 			if ("q".equals(option)) {
 				scanner.close();
 				return;
 			}
+		}
 
-			switch (option) {
-			case "v":
+		switch (option) {
+		case "v":
+			if (num == null) {
 				addOutput("Number to be verified: ");
-				int suspect = scanner.nextInt();
-				boolean isPrime = Prime.isPrimeBruteForce(suspect);
-				addOutput(suspect + " is" + (isPrime ? " " : " not ") + "a prime number.");
-				break;
-			case "g":
+				num = scanner.nextInt();
+			}
+			boolean isPrime = Prime.isPrimeBruteForce(num);
+			addOutput(num + " is" + (isPrime ? " " : " not ") + "a prime number.");
+			break;
+		case "g":
+			if(num == null) {
 				addOutput("Number limit: ");
-				int limit = scanner.nextInt();
+				num = scanner.nextInt();
+			}
+			if(path == null) {
 				addOutput("Path to save the list: ");
-				String path = scanner.nextLine();
+				path = scanner.next();
+			}
+			//TODO UtilFile.validateFile(path);
 
-				// por partes
-				int a = 2, b = (limit > SAVE_LIMIT) ? SAVE_LIMIT : limit;
-				while (b <= limit) {
-					List<Integer> primes = Prime.segmentedEratosthenes(a, b);
-					UtilFile.saveOnFile(path, primes);
-					a = b + 1;
-					b = (b + SAVE_LIMIT) > limit ? limit : (b + SAVE_LIMIT);
-				}
-
-				Prime.generatePrimeNumbers(limit);
-
-			default:
-				throw new IllegalArgumentException("Unexpected value: " + option);
+			// por partes
+			int a = 2, b = (num > SAVE_LIMIT) ? SAVE_LIMIT : num;
+			while (b <= num) {
+				List<Integer> primes = Prime.segmentedEratosthenes(a, b);
+				UtilFile.saveOnFile(path, primes);
+				a = b + 1;
+				b = (b + SAVE_LIMIT) > num ? num : (b + SAVE_LIMIT);
+				if(a >= num)
+					break;
 			}
 
+			Prime.generatePrimeNumbers(num);
+
+			break;
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + option);
 		}
 
 		scanner.close();
-
 	}
 
 	@Override
