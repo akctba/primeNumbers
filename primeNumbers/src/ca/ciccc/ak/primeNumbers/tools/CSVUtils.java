@@ -8,12 +8,14 @@ public class CSVUtils {
 
     private static final char DEFAULT_SEPARATOR = ',';
     
-    public static void writeLine(Writer w, List<?> values) throws IOException {
-        writeLine(w, values, DEFAULT_SEPARATOR, ' ');
+    
+    
+    public static void writeLine(Writer w, List<?> values, boolean append) throws IOException {
+        writeLine(w, values, DEFAULT_SEPARATOR, ' ', append);
     }
 
-    public static void writeLine(Writer w, List<?> values, char separators) throws IOException {
-        writeLine(w, values, separators, ' ');
+    public static void writeLine(Writer w, List<?> values, char separators, boolean append) throws IOException {
+        writeLine(w, values, separators, ' ', append);
     }
 
     //https://tools.ietf.org/html/rfc4180
@@ -27,19 +29,17 @@ public class CSVUtils {
 
     }
 
-    public static void writeLine(Writer w, List<?> values, char separators, char customQuote) throws IOException {
-
-        boolean first = true;
+    public static void writeLine(Writer w, List<?> values, char separators, char customQuote, boolean append) throws IOException {
 
         //default customQuote is empty
-
+    	
         if (separators == ' ') {
             separators = DEFAULT_SEPARATOR;
         }
 
         StringBuilder sb = new StringBuilder();
         for (Object value : values) {
-            if (!first) {
+            if (append) {
                 sb.append(separators);
             }
             if (customQuote == ' ') {
@@ -48,9 +48,9 @@ public class CSVUtils {
                 sb.append(customQuote).append(followCVSformat(value.toString())).append(customQuote);
             }
 
-            first = false;
+            append = true;
         }
-        sb.append("\n");
+        //sb.append("\n");
         w.append(sb.toString());
 
 

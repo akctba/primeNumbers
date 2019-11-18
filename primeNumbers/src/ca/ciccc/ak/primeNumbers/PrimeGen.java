@@ -1,6 +1,6 @@
 package ca.ciccc.ak.primeNumbers;
 
-import java.net.URL;
+import java.io.InputStream;
 
 import ca.ciccc.ak.primeNumbers.interfaces.View;
 import ca.ciccc.ak.primeNumbers.tools.UtilFile;
@@ -42,10 +42,11 @@ public class PrimeGen {
 	 * Print help instructions
 	 */
 	private static void printHelp() {
-		UtilFile uf = new UtilFile();
-		URL helpFile = uf.getClass().getResource("../help.txt");
+		Class<UtilFile> clazz = UtilFile.class;
+		InputStream helpFile = clazz.getResourceAsStream("/help.txt");
+		System.out.println(helpFile);
 		
-		UtilFile.printFile(helpFile);
+		UtilFile.printFromInputStream(helpFile);
 
 	}
 
