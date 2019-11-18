@@ -91,10 +91,12 @@ public class ConsoleApplication implements View {
 			
 			Date end = new Date();
 			long dif = end.getTime() - ini.getTime();
-			UtilFile.saveOnFile(path, dif + " milliseconds");
+			//UtilFile.saveOnFile(path, dif + " milliseconds");
+			addOutput(dif + " milliseconds");
 
 			break;
 		default:
+			scanner.close();
 			throw new IllegalArgumentException("Unexpected value: " + option);
 		}
 
