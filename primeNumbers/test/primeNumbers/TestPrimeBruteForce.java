@@ -9,6 +9,27 @@ import ca.ciccc.ak.primeNumbers.core.Prime;
 
 
 class TestPrimeBruteForce {
+	
+	@Test
+	void testZero() {
+		boolean primeBruteForce = Prime.isPrimeBruteForce(0);
+		
+		Assert.assertFalse("Zero is not prime number", primeBruteForce);
+	}
+	
+	@Test
+	void testOne() {
+		boolean primeBruteForce = Prime.isPrimeBruteForce(1);
+		
+		Assert.assertFalse("One is not prime number", primeBruteForce);
+	}
+	
+	@Test
+	void testTwo() {
+		boolean primeBruteForce = Prime.isPrimeBruteForce(2);
+		
+		Assert.assertTrue("Two is prime number", primeBruteForce);
+	}
 
 	@Test
 	void testThree() {
