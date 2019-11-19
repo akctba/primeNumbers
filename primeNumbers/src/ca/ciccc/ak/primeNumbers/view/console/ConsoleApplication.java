@@ -1,6 +1,5 @@
 package ca.ciccc.ak.primeNumbers.view.console;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,7 +14,7 @@ public class ConsoleApplication implements View {
 	private Integer num;
 	private String path;
 
-	public static final int SAVE_LIMIT = 100;
+	public static final int SAVE_LIMIT = 1_000_000_000;
 
 	public ConsoleApplication() {
 		// default contructor
@@ -76,7 +75,8 @@ public class ConsoleApplication implements View {
 			}
 			//TODO UtilFile.validateFile(path);
 			
-			Date ini = new Date();
+			//Date ini = new Date();
+			long preTime = System.nanoTime();
 
 			// por partes
 			int a = 2, b = (num > SAVE_LIMIT) ? SAVE_LIMIT : num;
@@ -89,10 +89,15 @@ public class ConsoleApplication implements View {
 					break;
 			}
 			
-			Date end = new Date();
-			long dif = end.getTime() - ini.getTime();
+			//Date end = new Date();
+			long posTime = System.nanoTime();
+			long dif = posTime - preTime;
+			
+			double elapsedTimeInSecond = (double) dif / 1_000_000;
 			//UtilFile.saveOnFile(path, dif + " milliseconds");
-			addOutput(dif + " milliseconds");
+			
+			
+			addOutput(elapsedTimeInSecond + " milliseconds");
 
 			break;
 		default:
